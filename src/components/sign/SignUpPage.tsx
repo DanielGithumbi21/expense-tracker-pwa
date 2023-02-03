@@ -1,14 +1,17 @@
+import { useContext } from "react"
 import { Container, Card, Typography, TextField, InputAdornment, IconButton } from '@mui/material'
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { DataContext } from '../../context/ContextProvider'
 
 const SignUpPage = ({ handleShowPassword, showPassword, switchmode }: any) => {
+    const { smallScreen } = useContext(DataContext)
     return (
         <div className="container-fluid p-5" style={{ backgroundColor: "#f2f8FF" }}>
             <Container sx={{
                 padding: "30px",
-                marginTop: "10%",
-                width: "60%",
-                marginBottom: "10%"
+                marginTop: smallScreen ? "20%" : "10%",
+                width: smallScreen ? "100%" : "60%",
+                marginBottom: smallScreen ? "30%" : "10%"
             }}>
                 <Card sx={{ padding: "20px", backgroundColor: "transparent" }}>
                     <Typography variant='h5' sx={{ marginBottom: "30px", textAlign: "center" }}>
