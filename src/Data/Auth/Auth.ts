@@ -1,5 +1,5 @@
 import axios from "axios"
-const url = "http://localhost:5000"
+const url = "http://localhost:8080"
 
 
 const registerUser = async (post:any,setIsLoading:any,navigate:any,setErrors:any,setUser:any) => {
@@ -8,6 +8,7 @@ const registerUser = async (post:any,setIsLoading:any,navigate:any,setErrors:any
     .then((data) => {
         setIsLoading(false)
         setUser(data.data);
+        navigate("/spendings")
     })
     .catch((error) => {
         setIsLoading(false)

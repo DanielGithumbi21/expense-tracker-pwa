@@ -10,6 +10,7 @@ import Typography from '@mui/material/Typography';
 import { TextField } from "@mui/material"
 import { useNavigate } from 'react-router-dom';
 import { DataContext } from '../../context/ContextProvider';
+import { createSpending } from '../../Data/Spendings/Data';
 
 const steps = [
     {
@@ -26,7 +27,6 @@ const steps = [
 interface Post {
     budget:Number,
     income:Number,
-    user:String
 }
 
 export default function Spendings() {
@@ -52,17 +52,15 @@ export default function Spendings() {
         setFormData({ ...formData, [e.target.name]: e.target.value })
     }
 
-    const { user, setLoggedUser,smallScreen } = useContext(DataContext)
+    const { smallScreen } = useContext(DataContext)
 
     const onSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
         const post:Post = {
             income: formData.income,
             budget: formData.budget,
-            user:""
         }
-        // addPlannedFinance(post, setLoggedUser, setIsLoading, setErrors, navigate)
-        console.log(post)
+        createSpending(post,setIsLoading,navigate)
 
     }
 
