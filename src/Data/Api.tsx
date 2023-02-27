@@ -1,0 +1,1 @@
+export const Api = "https://w2pru3ppqs.us-east-1.awsapprunner.com"
