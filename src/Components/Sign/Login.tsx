@@ -16,7 +16,6 @@ const Login = ({ switchMode }: any) => {
         e.preventDefault()
         login(formData, setIsLoading, setErrors, navigate)
     }
-    console.log(formData)
     return (
         <Container sx={{
             marginTop: "10%",

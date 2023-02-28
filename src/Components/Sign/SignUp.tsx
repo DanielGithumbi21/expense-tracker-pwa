@@ -1,22 +1,23 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Container, Typography, Button } from '@mui/material'
 import GoogleIcon from '@mui/icons-material/Google';
 import { useNavigate } from "react-router-dom"
 import { createAccount } from '../../Data/Auth/Auth';
+import { DataContext } from '../../Context/ContextProvider';
 const SignUp = ({ switchMode }: any) => {
     const navigate = useNavigate()
     const initialState = { name: "", email: "", password: "" }
     const [formData, setFormData] = useState(initialState)
     const [isLoading, setIsLoading] = useState<Boolean>(false)
     const [errors, setErrors] = useState<String>()
+    const { setUser } = useContext(DataContext)
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value })
     }
     const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        createAccount(formData, setIsLoading, setErrors, navigate)
+        createAccount(formData, setIsLoading, setErrors, navigate, setUser)
     }
-    console.log(formData)
     return (
         <Container sx={{
             marginTop: "7%",

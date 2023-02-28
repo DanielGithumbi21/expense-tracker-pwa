@@ -10,17 +10,18 @@ interface loginData {
     email:String,
     password:String
 }
-const createAccount = async (data:Data,setIsLoading:any,setErrors:any,navigate:any,) => {
+const createAccount = async (data:Data,setIsLoading:any,setErrors:any,navigate:any,setUser:any) => {
     try {
         setIsLoading(true)
         await axios.post(`${Api}/register`,data)
         .then((data) => {
             setIsLoading(false)
-            console.log(data)
+            setUser(data.data)
+            navigate("/welcome")
         })
         .catch((error) => {
             setIsLoading(false)
-            console.error(error)
+            setErrors(error)
         })
     } catch (error) {
         console.error(error)
