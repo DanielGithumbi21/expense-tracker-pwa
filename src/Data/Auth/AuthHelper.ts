@@ -4,8 +4,8 @@ import axios,{AxiosInstance} from "axios"
 
 
 const instance =  () => {
+  if (user !== null) {
     console.log(user.jwt)
-  if (user.jwt !== "" && user.jwt !== undefined) {
     return user.jwt
   }
 }

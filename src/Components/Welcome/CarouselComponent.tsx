@@ -20,9 +20,10 @@ interface ImageCarouselProps {
     title?: String,
     onNextItem?: () => void;
     onInputChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    isLoading?: Boolean
 }
 
-const ImageCarousel: React.FC<ImageCarouselProps> = ({ items, type, title, onNextItem, onInputChange }) => {
+const ImageCarousel: React.FC<ImageCarouselProps> = ({ items, type, title, onNextItem, onInputChange, isLoading }) => {
     const navigate = useNavigate()
     const [currentIndex, setCurrentIndex] = useState(0);
     const [previousCaption, setPreviousCaption] = useState("");
@@ -93,6 +94,7 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ items, type, title, onNex
                                     name={(currentItem as Input).name}
                                     type={(currentItem as Input).type}
                                     defaultValue={(currentItem as Input).value}
+                                    required
                                 />
                             </div>
                         </Grid>
@@ -117,7 +119,7 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ items, type, title, onNex
                                         </Button>
                                     ) : (
 
-                                        <Button variant="contained" onClick={onNextItem}>Submit</Button>
+                                        <Button variant="contained" disabled={isLoading ? true : false} onClick={onNextItem}> {isLoading ? "Submitting" : "Submit"}</Button>
                                     )}
                                 </>
                         }

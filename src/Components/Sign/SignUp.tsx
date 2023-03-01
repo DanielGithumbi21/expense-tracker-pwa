@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { Container, Typography, Button } from '@mui/material'
+import { Container, Typography, Button, Alert } from '@mui/material'
 import GoogleIcon from '@mui/icons-material/Google';
 import { useNavigate } from "react-router-dom"
 import { createAccount } from '../../Data/Auth/Auth';
@@ -13,6 +13,7 @@ const SignUp = ({ switchMode }: any) => {
     const { setUser } = useContext(DataContext)
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value })
+        setErrors("")
     }
     const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -24,7 +25,13 @@ const SignUp = ({ switchMode }: any) => {
             width: "70%",
             padding: "20px"
         }}>
-            <Typography className='mb-3' variant="h4">
+            {
+                errors === "" ? "" :
+                    <Alert variant="filled" severity="error" className='mb-3'>
+                        {errors}
+                    </Alert>
+            }
+            <Typography className='mb-3 mt-5' variant="h4">
                 Create an account
             </Typography>
             <Typography className='mb-3' variant='subtitle1'>
@@ -33,15 +40,15 @@ const SignUp = ({ switchMode }: any) => {
             <form onSubmit={onSubmit}>
                 <div className="mb-3">
                     <label htmlFor="exampleInputEmail1" className="form-label"> <b>Name</b> </label>
-                    <input onChange={handleChange} type="text" name="name" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
+                    <input required onChange={handleChange} type="text" name="name" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
                 </div>
                 <div className="mb-3">
                     <label htmlFor="exampleInputEmail1" className="form-label"> <b>Email address</b> </label>
-                    <input onChange={handleChange} type="email" name="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
+                    <input required onChange={handleChange} type="email" name="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
                 </div>
                 <div className="mb-5">
                     <label htmlFor="exampleInputPassword1" className="form-label"><b>Password</b></label>
-                    <input onChange={handleChange} type="password" name="password" className="form-control" id="exampleInputPassword1" />
+                    <input required onChange={handleChange} type="password" name="password" className="form-control" id="exampleInputPassword1" />
                 </div>
                 <div className="mb-3">
                     <Button type="submit" variant="contained" fullWidth disableElevation disabled={isLoading ? true : false}>

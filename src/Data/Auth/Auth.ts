@@ -21,23 +21,24 @@ const createAccount = async (data:Data,setIsLoading:any,setErrors:any,navigate:a
         })
         .catch((error) => {
             setIsLoading(false)
-            setErrors(error)
+           setErrors(error.response.data.Error)
         })
     } catch (error) {
         console.error(error)
     }
 }
-const login = async (data:loginData,setIsLoading:any,setErrors:any,navigate:any,) => {
+const login = async (data:loginData,setIsLoading:any,setErrors:any,navigate:any,setUser:any) => {
     try {
         setIsLoading(true)
         await axios.post(`${Api}/login`,data)
         .then((data) => {
             setIsLoading(false)
-            console.log(data)
+            setUser(data.data)
+            navigate("/")
         })
         .catch((error) => {
             setIsLoading(false)
-            console.error(error)
+            setErrors(error.response.data.Error)
         })
     } catch (error) {
         console.error(error)

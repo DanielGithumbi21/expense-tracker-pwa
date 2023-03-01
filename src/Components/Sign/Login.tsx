@@ -1,20 +1,23 @@
-import { Container, Typography, Button } from '@mui/material'
+import { Container, Typography, Button, Alert } from '@mui/material'
 import GoogleIcon from '@mui/icons-material/Google';
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useNavigate } from "react-router-dom"
 import { login } from '../../Data/Auth/Auth';
+import { DataContext } from '../../Context/ContextProvider';
 const Login = ({ switchMode }: any) => {
     const navigate = useNavigate()
     const initialState = { email: "", password: "" }
     const [formData, setFormData] = useState(initialState)
     const [isLoading, setIsLoading] = useState<Boolean>(false)
     const [errors, setErrors] = useState<String>()
+    const { setUser } = useContext(DataContext)
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value })
+        setErrors("")
     }
     const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        login(formData, setIsLoading, setErrors, navigate)
+        login(formData, setIsLoading, setErrors, navigate, setUser)
     }
     return (
         <Container sx={{
@@ -22,6 +25,12 @@ const Login = ({ switchMode }: any) => {
             width: "70%",
             padding: "20px"
         }}>
+            {
+                errors === "" ? "" :
+                    <Alert variant="filled" severity="error" className='mb-3' >
+                        {errors}
+                    </Alert>
+            }
             <Typography className='mb-3' variant="h4">
                 Sign in
             </Typography>
@@ -31,11 +40,11 @@ const Login = ({ switchMode }: any) => {
             <form onSubmit={onSubmit}>
                 <div className="mb-3">
                     <label htmlFor="exampleInputEmail1" className="form-label"> <b>Email address</b> </label>
-                    <input name='email' onChange={handleChange} type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
+                    <input required name='email' onChange={handleChange} type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
                 </div>
                 <div className="mb-5">
                     <label htmlFor="exampleInputPassword1" className="form-label"><b>Password</b></label>
-                    <input name='password' onChange={handleChange} type="password" className="form-control" id="exampleInputPassword1" />
+                    <input required name='password' onChange={handleChange} type="password" className="form-control" id="exampleInputPassword1" />
                 </div>
                 <div className="mb-3">
                     <Button type="submit" variant="contained" fullWidth disableElevation disabled={isLoading ? true : false}>

@@ -11,13 +11,12 @@ const Spendings = () => {
         budget: "",
     });
     const [isLoading, setIsLoading] = useState<Boolean>(false)
-    const [errors, setErrors] = useState<String>('')
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
         setInputValues((prevValues) => ({ ...prevValues, [name]: value }));
     };
     const handleInputSubmit = () => {
-        createSpending(inputValues, setIsLoading, setErrors, navigate)
+        createSpending(inputValues, setIsLoading, navigate)
     };
     const inputs = [
         {
@@ -42,6 +41,7 @@ const Spendings = () => {
                 type="input"
                 onNextItem={handleInputSubmit}
                 onInputChange={handleInputChange}
+                isLoading={isLoading}
             />
         </Container>
     )
