@@ -1,15 +1,22 @@
+import axios from "axios"
 import { Api } from "../Api"
-import { reqInstance, reqInstance2 } from "../Auth/AuthHelper"
 
 
-const createSpending = async (data:any,setIsLoading:any,navigate:any) => {
-    reqInstance2.post(`${Api}/spendings`,data)
+const createSpending = async (data:any,setIsLoading:any,navigate:any,jwt:any) => {
+    setIsLoading(true)
+    console.log(jwt)
+    axios.post(`${Api}/spendings`,data, {
+        headers:{
+            Authorization:`Bearer ${jwt}`
+        }
+    })
     .then(() => {
         setIsLoading(false)
         navigate("/")
     })
     .catch((error) => {
         console.log(error)
+        setIsLoading(false)
     })
 }
 

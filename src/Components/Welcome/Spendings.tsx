@@ -4,7 +4,7 @@ import ImageCarousel from './CarouselComponent';
 import { createSpending } from '../../Data/Finance/Spendings';
 import { useNavigate } from 'react-router-dom';
 
-const Spendings = () => {
+const Spendings = ({ jwt }: any) => {
     const navigate = useNavigate()
     const [inputValues, setInputValues] = useState({
         income: "",
@@ -16,7 +16,7 @@ const Spendings = () => {
         setInputValues((prevValues) => ({ ...prevValues, [name]: value }));
     };
     const handleInputSubmit = () => {
-        createSpending(inputValues, setIsLoading, navigate)
+        createSpending(inputValues, setIsLoading, navigate, jwt)
     };
     const inputs = [
         {

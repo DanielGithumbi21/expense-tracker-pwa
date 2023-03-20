@@ -9,7 +9,7 @@ const SignUp = ({ switchMode }: any) => {
     const initialState = { name: "", email: "", password: "" }
     const [formData, setFormData] = useState(initialState)
     const [isLoading, setIsLoading] = useState<Boolean>(false)
-    const [errors, setErrors] = useState<String>()
+    const [errors, setErrors] = useState<String>("")
     const { setUser } = useContext(DataContext)
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value })
