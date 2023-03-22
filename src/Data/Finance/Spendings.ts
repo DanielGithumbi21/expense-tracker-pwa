@@ -4,7 +4,6 @@ import { Api } from "../Api"
 
 const createSpending = async (data:any,setIsLoading:any,navigate:any,jwt:any) => {
     setIsLoading(true)
-    console.log(jwt)
     axios.post(`${Api}/spendings`,data, {
         headers:{
             Authorization:`Bearer ${jwt}`
@@ -20,6 +19,27 @@ const createSpending = async (data:any,setIsLoading:any,navigate:any,jwt:any) =>
     })
 }
 
+const getSpending = async (setIsLoading:any,setSpendings:any,jwt:String) => {
+    setIsLoading(true)
+    try {
+       await axios.get(`${Api}/spendings`,{
+        headers:{
+            Authorization:`Bearer ${jwt}` 
+        }
+       })
+       .then((data) => {
+        setSpendings(data.data)
+        setIsLoading(false)
+       })
+       .catch((error) => {
+        console.error(error)
+        setIsLoading(false)
+       })
+    } catch (error) {
+        console.error(error)
+    }
+}
+
 export {
-    createSpending
+    createSpending,getSpending
 }

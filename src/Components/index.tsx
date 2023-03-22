@@ -12,7 +12,9 @@ const ComponentFiles = () => {
     const { user } = useContext(DataContext)
     return (
         <Box sx={{ display: 'flex' }}>
-            <Sidebar />
+            {
+                user.jwt === "" ? "" : <Sidebar />
+            }
             <Box
                 component="main"
                 sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}
